@@ -15,7 +15,10 @@ from datetime import datetime
 from elasticsearch import Elasticsearch
 from pymongo.errors import CursorNotFound, AutoReconnect
 from ssl import SSLWantReadError
+from datetime import date
 
+today = str(date.today())
+#print(today)
 
 # Logging config
 def set_logging():
@@ -276,7 +279,7 @@ def main():
                         sender.extract_and_send()
 
              '''))
-    parser.add_argument('--elastic_index', type=str, default="yeti-feeds", help='Elastic Stack index name')
+    parser.add_argument('--elastic_index', type=str, default="yeti-" + today, help='Elastic Stack index name')
     parser.add_argument('--excluded_feeds', type=set, default=set(), help='Set of feeds to exclude from indexing')
     parser.add_argument('--mongo_hostname', type=str, default="localhost", help='Mongodb hostname')
     parser.add_argument('elastic_hostname', type=str, help='Elastic Stack hostname/ip')
